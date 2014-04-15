@@ -10,7 +10,8 @@
 
 module rt.sections_linux;
 
-version (linux):
+version (Android) {}
+else version (linux):
 
 // debug = PRINTF;
 import core.memory;
