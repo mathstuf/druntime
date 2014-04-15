@@ -51,6 +51,7 @@ int       inet_pton(int, in char*, void*);
 
 version( Android )
 {
+    alias uint16_t in_port_t;
     alias uint32_t in_addr_t;
 
     struct in_addr
