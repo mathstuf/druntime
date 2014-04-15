@@ -11,7 +11,7 @@
 module rt.sections;
 
 version (Android)
-    static assert(0, "unimplemented");
+    public import rt.sections_linux;
 else version (linux)
     public import rt.sections_linux;
 else version (FreeBSD)
