@@ -92,7 +92,12 @@ version( Posix )
     ssize_t write(int, in void*, size_t);
 }
 
-version( linux )
+version( Android )
+{
+  off_t lseek(int, off_t, int) @trusted;
+  int   ftruncate(int, off_t) @trusted;
+}
+else version( linux )
 {
   static if( __USE_FILE_OFFSET64 )
   {
