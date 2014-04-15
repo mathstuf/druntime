@@ -959,8 +959,11 @@ mode_t umask(mode_t);
 version( Android )
 {
     int   fstat(int, stat_t*);
+    alias fstat64 fstat;
     int   lstat(in char*, stat_t*);
+    alias lstat64 lstat;
     int   stat(in char*, stat_t*);
+    alias stat64 stat;
 }
 else version( linux )
 {
