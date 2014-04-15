@@ -131,6 +131,42 @@ version (Android)
         enum SIGUSR2 = 12;
         enum SIGURG  = 23;
     }
+    else version (ARM)
+    {
+        enum SIGALRM = 14;
+        enum SIGBUS  = 7;
+        enum SIGCHLD = 17;
+        enum SIGCONT = 18;
+        enum SIGHUP  = 1;
+        enum SIGKILL = 9;
+        enum SIGPIPE = 13;
+        enum SIGQUIT = 3;
+        enum SIGSTOP = 19;
+        enum SIGTSTP = 20;
+        enum SIGTTIN = 21;
+        enum SIGTTOU = 22;
+        enum SIGUSR1 = 10;
+        enum SIGUSR2 = 12;
+        enum SIGURG  = 23;
+    }
+    else version (MIPS)
+    {
+        enum SIGALRM = 14;
+        enum SIGBUS  = 10;
+        enum SIGCHLD = 18;
+        enum SIGCONT = 25;
+        enum SIGHUP  = 1;
+        enum SIGKILL = 9;
+        enum SIGPIPE = 13;
+        enum SIGQUIT = 3;
+        enum SIGSTOP = 23;
+        enum SIGTSTP = 24;
+        enum SIGTTIN = 26;
+        enum SIGTTOU = 27;
+        enum SIGUSR1 = 16;
+        enum SIGUSR2 = 17;
+        enum SIGURG  = 21;
+    }
     else
     {
         static assert(false, "Architecture not supported.");
@@ -449,6 +485,36 @@ else version (Android)
             void function() sa_restorer;
         }
     }
+    else version (ARM)
+    {
+        struct sigaction_t
+        {
+            union
+            {
+                sigfn_t    sa_handler;
+                sigactfn_t sa_sigaction;
+            }
+
+            sigset_t        sa_mask;
+            c_ulong         sa_flags;
+            void function() sa_restorer;
+        }
+    }
+    else version (MIPS)
+    {
+        struct sigaction_t
+        {
+            c_uint          sa_flags;
+
+            union
+            {
+                sigfn_t    sa_handler;
+                sigactfn_t sa_sigaction;
+            }
+
+            sigset_t        sa_mask;
+        }
+    }
     else
     {
         static assert(false, "Architecture not supported.");
@@ -551,6 +617,22 @@ version( Android )
     version (X86)
     {
         alias c_ulong sigset_t;
+        enum int LONG_BIT = 32;
+    }
+    else version (ARM)
+    {
+        alias c_ulong sigset_t;
+        enum int LONG_BIT = 32;
+    }
+    else version (MIPS)
+    {
+        enum size_t _NSIG = 128;
+        enum size_t _NSIG_BPW = ulong.sizeof * 8;
+        enum size_t _NSIG_WORDS = _NSIG / _NSIG_BPW;
+        struct sigset_t
+        {
+            ulong sig[_NSIG_WORDS];
+        }
         enum int LONG_BIT = 32;
     }
     else
@@ -1135,6 +1217,62 @@ version (Android)
         enum SA_RESTART     = 0x10000000;
         enum SA_SIGINFO     = 4;
         enum SA_NOCLDWAIT   = 2;
+        enum SA_NODEFER     = 0x40000000;
+        enum SS_ONSTACK     = 1;
+        enum SS_DISABLE     = 2;
+        enum MINSIGSTKSZ    = 2048;
+        enum SIGSTKSZ       = 8192;
+
+        struct stack_t
+        {
+            void*   ss_sp;
+            int     ss_flags;
+            size_t  ss_size;
+        }
+    }
+    else version (ARM)
+    {
+        enum SIGPOLL   = 29;
+        enum SIGPROF   = 27;
+        enum SIGSYS    = 31;
+        enum SIGTRAP   = 5;
+        enum SIGVTALRM = 26;
+        enum SIGXCPU   = 24;
+        enum SIGXFSZ   = 25;
+
+        enum SA_ONSTACK     = 0x08000000;
+        enum SA_RESETHAND   = 0x80000000;
+        enum SA_RESTART     = 0x10000000;
+        enum SA_SIGINFO     = 4;
+        enum SA_NOCLDWAIT   = 2;
+        enum SA_NODEFER     = 0x40000000;
+        enum SS_ONSTACK     = 1;
+        enum SS_DISABLE     = 2;
+        enum MINSIGSTKSZ    = 2048;
+        enum SIGSTKSZ       = 8192;
+
+        struct stack_t
+        {
+            void*   ss_sp;
+            int     ss_flags;
+            size_t  ss_size;
+        }
+    }
+    else version (MIPS)
+    {
+        enum SIGPOLL   = 22;
+        enum SIGPROF   = 29;
+        enum SIGSYS    = 12;
+        enum SIGTRAP   = 5;
+        enum SIGVTALRM = 28;
+        enum SIGXCPU   = 30;
+        enum SIGXFSZ   = 31;
+
+        enum SA_ONSTACK     = 0x08000000;
+        enum SA_RESETHAND   = 0x80000000;
+        enum SA_RESTART     = 0x10000000;
+        enum SA_SIGINFO     = 8;
+        enum SA_NOCLDWAIT   = 0x00010000;
         enum SA_NODEFER     = 0x40000000;
         enum SS_ONSTACK     = 1;
         enum SS_DISABLE     = 2;

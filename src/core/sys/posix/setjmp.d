@@ -37,6 +37,14 @@ version( Android )
     {
         enum _JBLEN = 10;
     }
+    else version( ARM )
+    {
+        enum _JBLEN = 64;
+    }
+    else version( MIPS )
+    {
+        enum _JBLEN = 157;
+    }
     else
     {
         static assert(false, "Architecture not supported.");

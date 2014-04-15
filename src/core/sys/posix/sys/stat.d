@@ -108,6 +108,58 @@ version( Android )
             ulong       st_ino;
         }
     }
+    else version (ARM)
+    {
+        struct stat_t
+        {
+            ulong       st_dev;
+            ubyte[4]    __pad0;
+            c_ulong     __st_ino;
+            uint        st_mode;
+            uint        st_nlink;
+            c_ulong     st_uid;
+            c_ulong     st_gid;
+            ulong       st_rdev;
+            ubyte[4]    __pad3;
+
+            long        st_size;
+            c_ulong     st_blksize;
+            ulong       st_blocks;
+            c_ulong     st_atime;
+            c_ulong     st_atime_nsec;
+            c_ulong     st_mtime;
+            c_ulong     st_mtime_nsec;
+            c_ulong     st_ctime;
+            c_ulong     st_ctime_nsec;
+            ulong       st_ino;
+        }
+    }
+    else version (MIPS)
+    {
+        struct stat_t
+        {
+            c_ulong     st_dev;
+            c_ulong[3]  __pad0;
+            ulong       st_ino;
+            uint        st_mode;
+            uint        st_nlink;
+            c_ulong     st_uid;
+            c_ulong     st_gid;
+            ulong       st_rdev;
+            ubyte[3]    __pad1;
+
+            long        st_size;
+            c_ulong     st_atime;
+            c_ulong     st_atime_nsec;
+            c_ulong     st_mtime;
+            c_ulong     st_mtime_nsec;
+            c_ulong     st_ctime;
+            c_ulong     st_ctime_nsec;
+            c_ulong     st_blksize;
+            c_ulong     __pat2;
+            ulong       st_blocks;
+        }
+    }
     else
     {
         static assert(false, "Architecture not supported.");

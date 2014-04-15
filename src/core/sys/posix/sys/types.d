@@ -93,6 +93,47 @@ version( Android )
         alias c_long    time_t;
         alias uint      uid_t;
     }
+    else version(ARM)
+    {
+        alias c_ulong   blkcnt_t;
+        alias c_ulong   blksize_t;
+        alias uint      dev_t;
+        alias ushort    gid_t;
+        alias c_ulong   ino_t;
+        alias ushort    mode_t;
+        alias ushort    nlink_t;
+        alias c_long    off_t;
+        alias int       pid_t;
+        alias int       ssize_t;
+        alias c_long    time_t;
+        alias ushort    uid_t;
+    }
+    else version(MIPS)
+    {
+        alias c_ulong   blkcnt_t;
+        alias c_ulong   blksize_t;
+        alias uint      dev_t;
+        alias uint      gid_t;
+        alias c_ulong   ino_t;
+        alias uint      mode_t;
+        version(MIPS32)
+        {
+            alias c_ulong nlink_t;
+        }
+        else version(MIPS64)
+        {
+            alias uint    nlink_t;
+        }
+        else
+        {
+            static assert(false, "Architecture not supported.");
+        }
+        alias c_long    off_t;
+        alias int       pid_t;
+        alias int       ssize_t;
+        alias c_long    time_t;
+        alias uint      uid_t;
+    }
     else
     {
         static assert(false, "Architecture not supported.");
