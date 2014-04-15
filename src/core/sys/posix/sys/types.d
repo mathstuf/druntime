@@ -29,7 +29,12 @@ extern (C):
 __syscall_slong_t
 __syscall_ulong_t
 */
-version (linux)
+version (Android)
+{
+    alias c_long slong_t;
+    alias c_ulong ulong_t;
+}
+else version (linux)
 {
     version (X86_64)
     {
