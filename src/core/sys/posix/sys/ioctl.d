@@ -24,6 +24,7 @@ nothrow:
 
 version (Android)
 {
+    // XXX: Implement? It's there, but probably of minimal use.
     int ioctl(int, int, ...);
 }
 else version (linux)

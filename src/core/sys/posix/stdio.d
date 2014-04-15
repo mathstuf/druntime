@@ -211,7 +211,11 @@ int    putc_unlocked(int, FILE*);
 int    putchar_unlocked(int);
 */
 
-version( linux )
+version( Android )
+{
+    // Available, but nop'd out.
+}
+else version( linux )
 {
     void   flockfile(FILE*);
     int    ftrylockfile(FILE*);
