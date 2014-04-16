@@ -73,7 +73,9 @@ version( Android )
         __fd_mask[FD_SETSIZE / __NFDBITS] fds_bits;
     }
 
-    /* These functions are generated in assembly in bionic.
+    // These functions are generated in assembly in bionic. However, these
+    // should be compatible implementations since Linux enforces the ABI for
+    // the fd_set structure.
     extern (D) void FD_CLR( int fd, fd_set* fdset )
     {
         fdset.fds_bits[__FDELT( fd )] &= ~__FDMASK( fd );
@@ -93,7 +95,6 @@ version( Android )
     {
         fdset.fds_bits[0 .. $] = 0;
     }
-    */
 
     int pselect(int, fd_set*, fd_set*, fd_set*, in timespec*, in sigset_t*);
     int select(int, fd_set*, fd_set*, fd_set*, timeval*);
