@@ -128,7 +128,8 @@ int getpwuid_r(uid_t, passwd*, char*, size_t, passwd**);
 
 version( Android )
 {
-    // Missing from bionic
+    int getpwnam_r(in char*, passwd*, char*, size_t, passwd**);
+    int getpwuid_r(uid_t, passwd*, char*, size_t, passwd**);
 }
 else version( linux )
 {
