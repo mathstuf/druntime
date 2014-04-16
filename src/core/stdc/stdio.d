@@ -217,8 +217,6 @@ else version( Win64 )
 }
 else version( Android )
 {
-    alias off_t fpos_t;
-
     struct __sFILE
     {
         ubyte*    _p;
