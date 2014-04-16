@@ -249,7 +249,6 @@ else version( Android )
     }
 
     alias __sFILE _iobuf; //remove later
-    alias shared(__sFILE) FILE;
 }
 else version( linux )
 {
