@@ -199,8 +199,8 @@ version( CRuntime_Glibc )
         alias CLOCK_REALTIME_COARSE = core.sys.linux.time.CLOCK_REALTIME_COARSE; // non-standard
     enum TIMER_ABSTIME          = 0x01;
 
-    alias int clockid_t;
-    alias int timer_t;
+    alias int   clockid_t;
+    alias void* timer_t;
 
     int clock_getres(clockid_t, timespec*);
     int clock_gettime(clockid_t, timespec*);
@@ -293,15 +293,8 @@ else version( CRuntime_Bionic )
     enum CLOCK_REALTIME_HR = 4;
     enum TIMER_ABSTIME     = 0x01;
 
-    version(X86)
-    {
-        alias int clockid_t;
-        alias int timer_t;
-    }
-    else
-    {
-        static assert(false, "Architecture not supported.");
-    }
+    alias int   clockid_t;
+    alias void* timer_t;
 
     int clock_getres(int, timespec*);
     int clock_gettime(int, timespec*);
